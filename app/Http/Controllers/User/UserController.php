@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Redis;
 class UserController extends Controller
 {
     //
-
+    //web端登录注册
     public function reg(){
 	    return view('user.reg');
     }
@@ -131,5 +131,44 @@ class UserController extends Controller
         }else{
             echo "账号或密码错误";
         }
+    }
+
+
+
+    //app登陆
+    public function appLogin(Request $request){
+       //echo "<pre>";print_r($_POST);echo "</pre>";
+        $username=$request->input('username');
+        $password=$request->input('password');
+        $where=[
+            'name'=>$username
+        ];
+        $userInfo=UserModel::where($where)->first();
+        if($userInfo){
+            if(password_verify($password,$userInfo->password)){
+                $uid=$userInfo->uid;
+                $redis_key='app:login:token:'.$uid;
+                $token = substr(md5(time()+$uid.mt_rand(1,99999)),10,20);
+                Redis::set($redis_key,$token);
+                $response=[
+                    'error'=>0,
+                    'msg'=>'ok',
+                    'token'=>$token
+                ];
+            }else{
+                $response=[
+                    'error'=>4001,
+                    'msg'=>'密码错误',
+                    'token'=>''
+                ];
+            }
+        }else{
+            $response=[
+                'error'=>4001,
+                'msg'=>'账号不存在',
+                'token'=>''
+            ];
+        }
+        return $response;
     }
 }

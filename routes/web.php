@@ -19,3 +19,4 @@ Route::get('/user/reg','User\UserController@reg');
 Route::post('/user/reg','User\UserController@doReg');
 Route::get('/user/login','User\UserController@login');
 Route::post('/user/login','User\UserController@doLogin');
+Route::post('/user/applogin','User\UserController@appLogin');
