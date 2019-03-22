@@ -74,7 +74,7 @@ class UserController extends Controller
             $key='str:u:token:'.$_COOKIE['uid'];
             $token=Redis::hget($key,'web');
             $app_token=Redis::hget($key,'app');
-            if($_COOKIE['token']==$token || $_COOKIE['token']==$app_token){
+            if($_COOKIE['token']==$token){
                 //token有效
                 if(isset($_SERVER['HTTP_REFERER'])){
                     header('Location:'.$_SERVER['HTTP_REFERER']);
@@ -159,11 +159,6 @@ class UserController extends Controller
         if($userInfo){
             if(password_verify($password,$userInfo->password)){
                 $token = substr(md5(time()+$userInfo->uid.mt_rand(1,99999)),10,20);
-                setcookie('uid',$userInfo->uid,time()+86400,'/','wangby.cn',false,true);
-                setcookie('token',$token,time()+86400,'/','wangby.cn',false,true);
-
-                $request->session()->put('u_token',$token);
-                $request->session()->put('uid',$userInfo->uid);
                 $uid=$userInfo->uid;
                 $redis_key='str:u:token:'.$uid;
 
@@ -215,8 +210,6 @@ class UserController extends Controller
             $uid=UserModel::insertGetId($data);
             if($uid){
                 $token = substr(md5(time()+$uid.mt_rand(1,99999)),10,10);
-                setcookie('uid',$uid,time()+86400,'/','wangby.cn',false,false);
-                setcookie('token',$token,time()+86400,'/','wangby.cn',false,true);
                 $redis_key='app:login:token:'.$uid;
                 Redis::del($redis_key);
                 Redis::hset($redis_key,'app',$token);
