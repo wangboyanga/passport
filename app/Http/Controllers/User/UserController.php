@@ -81,10 +81,6 @@ class UserController extends Controller
                 }else{
                     header('Location:http://www.wangby.cn');
                 }
-            }else{
-                //token无效
-                header('Refresh:1;url=http://passport.wangby.cn/user/login');
-                echo '请先登录';exit;
             }
         }else{
             //未登录
