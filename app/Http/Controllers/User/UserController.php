@@ -56,13 +56,14 @@ class UserController extends Controller
         if($uid){
             $token = substr(md5(time().mt_rand(1,99999)),10,10);
             //setcookie('uid',$res->uid,time()+86400,'/','lening.com',false,true);
-            setcookie('uid',$uid,time()+86400,'/','test.com',false,false);
-            setcookie('token',$token,time()+86400,'/','test.com',false,true);
-            $redis_key_web_token='str:u:token:web:'.$uid;
-            Redis::set($redis_key_web_token,$token);
+            setcookie('uid',$uid,time()+86400,'/','wangby.cn',false,false);
+            setcookie('token',$token,time()+86400,'/','wangby.cn',false,true);
+            $redis_key_web_token='str:u:token:'.$uid;
+            Redis::del($redis_key_web_token);
+            Redis::hset($redis_key_web_token,'web',$token);
             Redis::expire($redis_key_web_token,86400);
             echo "注册成功";
-            header('Refresh:2;url=http://shop.test.com/user/center');
+            header('Refresh:2;url=http://www.wangby.cn/user/center');
         }else{
             echo "注册失败";
         }
@@ -73,7 +74,7 @@ class UserController extends Controller
             if(isset($_SERVER['HTTP_REFERER'])){
                 header('Location:'.$_SERVER['HTTP_REFERER']);
             }else{
-                header('Location:http://shop.test.com');
+                header('Location:http://www.wangby.cn');
             }
         }else{
             //未登录
@@ -107,22 +108,28 @@ class UserController extends Controller
         if($res){
             if(password_verify($password,$res->password)){
                 $token = substr(md5(time().mt_rand(1,99999)),10,10);
-                setcookie('uid',$res->uid,time()+86400,'/','test.com',false,true);
-                setcookie('token',$token,time()+86400,'/','test.com',false,true);
+                setcookie('uid',$res->uid,time()+86400,'/','wangby.cn',false,true);
+                setcookie('token',$token,time()+86400,'/','wangby.cn',false,true);
 
                 $request->session()->put('u_token',$token);
                 $request->session()->put('uid',$res->uid);
-                header("Refresh:3;url=/user/center");
+                //header("Refresh:3;url=/user/center");
 
 
-                $redis_key_web_token='str:u:token:web:'.$res->uid;
-                Redis::set($redis_key_web_token,$token);
+                $redis_key_web_token='str:u:token:'.$res->uid;
+                Redis::del($redis_key_web_token);
+                Redis::hset($redis_key_web_token,'web',$token);
                 Redis::expire($redis_key_web_token,86400);
                 echo "登陆成功";
                 if(empty($referer)){
-                    header('Refresh:2;url=http://shop.test.com');
+                    header('Refresh:2;url=http://www.wangby.cn');
                 }else{
-                    header('Refresh:2;url='.$referer);
+                    if($referer=='http://www.wangby.cn/logou'){
+                        header('Refresh:2;url=http://www.wangby.cn');
+                    }else{
+                        header('Refresh:2;url='.$referer);
+                    }
+                    //header('Refresh:2;url='.$referer);
                 }
 
             }else{
@@ -147,9 +154,10 @@ class UserController extends Controller
         if($userInfo){
             if(password_verify($password,$userInfo->password)){
                 $uid=$userInfo->uid;
-                $redis_key='app:login:token:'.$uid;
+                $redis_key='str:u:token:'.$uid;
                 $token = substr(md5(time()+$uid.mt_rand(1,99999)),10,20);
-                Redis::set($redis_key,$token);
+                Redis::del($redis_key);
+                Redis::hset($redis_key,'app',$token);
                 $response=[
                     'error'=>0,
                     'msg'=>'ok',
@@ -197,7 +205,8 @@ class UserController extends Controller
             if($uid){
                 $token = substr(md5(time()+$uid.mt_rand(1,99999)),10,10);
                 $redis_key='app:login:token:'.$uid;
-                Redis::set($redis_key,$token);
+                Redis::del($redis_key);
+                Redis::hset($redis_key,'app',$token);
                 $response=[
                     'error'=>0,
                     'msg'=>'ok',
