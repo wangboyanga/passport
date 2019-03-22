@@ -71,10 +71,20 @@ class UserController extends Controller
     public function login(Request $request){
         if(isset($_COOKIE['uid']) && isset($_COOKIE['token'])){
             //token有效
-            if(isset($_SERVER['HTTP_REFERER'])){
-                header('Location:'.$_SERVER['HTTP_REFERER']);
+            $key='str:u:token:'.$_COOKIE['uid'];
+            $token=Redis::hget($key,'web');
+            $app_token=Redis::hget($key,'app');
+            if($_COOKIE['token']==$token || $_COOKIE['token']==$app_token){
+                //token有效
+                if(isset($_SERVER['HTTP_REFERER'])){
+                    header('Location:'.$_SERVER['HTTP_REFERER']);
+                }else{
+                    header('Location:http://www.wangby.cn');
+                }
             }else{
-                header('Location:http://www.wangby.cn');
+                //token无效
+                header('Refresh:1;url=http://passport.wangby.cn/user/login');
+                echo '请先登录';exit;
             }
         }else{
             //未登录
@@ -122,10 +132,10 @@ class UserController extends Controller
                 Redis::expire($redis_key_web_token,86400);
                 echo "登陆成功";
                 if(empty($referer)){
-                    header('Refresh:2;url=http://www.wangby.cn');
+                    header('Refresh:2;url=http://www.wangby.cn/user/login');
                 }else{
                     if($referer=='http://www.wangby.cn/logou'){
-                        header('Refresh:2;url=http://www.wangby.cn');
+                        header('Refresh:2;url=http://www.wangby.cn/user/login');
                     }else{
                         header('Refresh:2;url='.$referer);
                     }
