@@ -171,4 +171,48 @@ class UserController extends Controller
         }
         return $response;
     }
+    public function appRegister(Request $request){
+        $name=$request->input('name');
+        $password=$request->input('password');
+        $age=$request->input('age');
+        $email=$request->input('email');
+        $reg_time=$request->input('reg_time');
+        $res=UserModel::where(['name'=>$name])->first();
+        if($res){
+            $response=[
+                'error'=>4001,
+                'msg'=>'该账号已存在',
+                'token'=>''
+            ];
+            return $request;
+        }
+        $password2=password_hash($password,PASSWORD_BCRYPT);
+        $data=[
+            'name'=>$name,
+            'password'=>$password2,
+            'age'=>$age,
+            'email'=>$email,
+            'reg_time'=>$reg_time
+        ];
+        //print_r($data);exit;
+        $uid=UserModel::insertGetId($data);
+        if($uid){
+            $token = substr(md5(time()+$uid.mt_rand(1,99999)),10,10);
+            $redis_key='app:login:token:'.$uid;
+            Redis::set($redis_key,$token);
+            $response=[
+                'error'=>0,
+                'msg'=>'ok',
+                'token'=>$token
+            ];
+            return $response;
+        }else{
+            $response=[
+                'error'=>4001,
+                'msg'=>'注册失败',
+                'token'=>''
+            ];
+            return $response;
+        }
+    }
 }
