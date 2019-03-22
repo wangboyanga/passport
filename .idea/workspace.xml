@@ -51,29 +51,35 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="web.php" pinned="false" current-in-tab="false">
+      <file leaf-file-name="web.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/routes/web.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="260">
-              <caret line="22" column="30" selection-start-line="22" selection-start-column="13" selection-end-line="22" selection-end-column="30" />
+              <caret line="22" column="67" lean-forward="true" selection-start-line="22" selection-start-column="67" selection-end-line="22" selection-end-column="67" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="UserController.php" pinned="false" current-in-tab="true">
+      <file leaf-file-name="UserController.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/Http/Controllers/User/UserController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="971">
-              <caret line="218" column="82" lean-forward="true" selection-start-line="218" selection-start-column="82" selection-end-line="218" selection-end-column="82" />
+            <state relative-caret-position="243">
+              <caret line="120" column="55" lean-forward="true" selection-start-line="120" selection-start-column="55" selection-end-line="120" selection-end-column="55" />
               <folding>
-                <element signature="e#45#73#0#PHP" expanded="true" />
                 <element signature="e#265#323#0#PHP" />
+                <element signature="e#328#2143#0#PHP" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
     </leaf>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>www.wangby.cn/user/center</find>
+      <find>center</find>
+    </findStrings>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -182,7 +188,7 @@
       <path value="$PROJECT_DIR$/vendor/fzaninotto/faker" />
     </include_path>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
+  <component name="ProjectFrameBounds" extendedState="7">
     <option name="x" value="-38" />
     <option name="y" value="42" />
     <option name="width" value="1297" />
@@ -310,15 +316,15 @@
       <option name="presentableId" value="Default" />
       <updated>1553136876087</updated>
       <workItem from="1553136907735" duration="12928000" />
-      <workItem from="1553216059935" duration="19399000" />
+      <workItem from="1553216059935" duration="20336000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="32327000" />
+    <option name="totallyTimeSpent" value="33264000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
+    <frame x="-8" y="-8" width="1382" height="744" extended-state="7" />
     <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.23352855" />
@@ -366,8 +372,8 @@
         <state relative-caret-position="2560">
           <caret line="128" column="31" lean-forward="true" selection-start-line="128" selection-start-column="31" selection-end-line="128" selection-end-column="31" />
           <folding>
-            <element signature="e#45#73#0#PHP" expanded="true" />
             <element signature="e#265#323#0#PHP" />
+            <element signature="e#328#2143#0#PHP" />
           </folding>
         </state>
       </provider>
@@ -456,13 +462,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/routes/web.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="260">
-          <caret line="22" column="30" selection-start-line="22" selection-start-column="13" selection-end-line="22" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/welcome.blade.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="320">
@@ -472,12 +471,19 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/Http/Controllers/User/UserController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="971">
-          <caret line="218" column="82" lean-forward="true" selection-start-line="218" selection-start-column="82" selection-end-line="218" selection-end-column="82" />
+        <state relative-caret-position="243">
+          <caret line="120" column="55" lean-forward="true" selection-start-line="120" selection-start-column="55" selection-end-line="120" selection-end-column="55" />
           <folding>
-            <element signature="e#45#73#0#PHP" expanded="true" />
             <element signature="e#265#323#0#PHP" />
+            <element signature="e#328#2143#0#PHP" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/routes/web.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="260">
+          <caret line="22" column="67" lean-forward="true" selection-start-line="22" selection-start-column="67" selection-end-line="22" selection-end-column="67" />
         </state>
       </provider>
     </entry>

@@ -127,10 +127,10 @@ class UserController extends Controller
                 Redis::expire($redis_key_web_token,86400);
                 echo "登陆成功";
                 if(empty($referer)){
-                    header('Refresh:2;url=http://www.wangby.cn/user/login');
+                    header('Refresh:2;url=http://passport.wangby.cn/user/login');
                 }else{
                     if($referer=='http://www.wangby.cn/logou'){
-                        header('Refresh:2;url=http://www.wangby.cn/user/login');
+                        header('Refresh:2;url=http://passport.wangby.cn/user/login');
                     }else{
                         header('Refresh:2;url='.$referer);
                     }
