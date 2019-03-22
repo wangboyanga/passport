@@ -82,21 +82,20 @@ class UserController extends Controller
                     header('Location:http://www.wangby.cn');
                 }
             }
+        }
+        //未登录
+        if(isset($_SERVER['HTTP_REFERER'])){
+            $data = [
+                'referer'=>$_SERVER['HTTP_REFERER']
+            ];
+            //var_dump($_COOKIE);
+            return view('user.login',$data);
         }else{
-            //未登录
-            if(isset($_SERVER['HTTP_REFERER'])){
-                $data = [
-                    'referer'=>$_SERVER['HTTP_REFERER']
-                ];
-                //var_dump($_COOKIE);
-                return view('user.login',$data);
-            }else{
-                $data = [
-                    'referer'=>''
-                ];
-                //var_dump($_COOKIE);
-                return view('user.login',$data);
-            }
+            $data = [
+                'referer'=>''
+            ];
+            //var_dump($_COOKIE);
+            return view('user.login',$data);
         }
 
     }
