@@ -158,9 +158,15 @@ class UserController extends Controller
         $userInfo=UserModel::where($where)->first();
         if($userInfo){
             if(password_verify($password,$userInfo->password)){
+                $token = substr(md5(time()+$userInfo->uid.mt_rand(1,99999)),10,20);
+                setcookie('uid',$userInfo->uid,time()+86400,'/','wangby.cn',false,true);
+                setcookie('token',$token,time()+86400,'/','wangby.cn',false,true);
+
+                $request->session()->put('u_token',$token);
+                $request->session()->put('uid',$userInfo->uid);
                 $uid=$userInfo->uid;
                 $redis_key='str:u:token:'.$uid;
-                $token = substr(md5(time()+$uid.mt_rand(1,99999)),10,20);
+
                 Redis::del($redis_key);
                 Redis::hset($redis_key,'app',$token);
                 $response=[
@@ -209,6 +215,8 @@ class UserController extends Controller
             $uid=UserModel::insertGetId($data);
             if($uid){
                 $token = substr(md5(time()+$uid.mt_rand(1,99999)),10,10);
+                setcookie('uid',$uid,time()+86400,'/','wangby.cn',false,false);
+                setcookie('token',$token,time()+86400,'/','wangby.cn',false,true);
                 $redis_key='app:login:token:'.$uid;
                 Redis::del($redis_key);
                 Redis::hset($redis_key,'app',$token);
