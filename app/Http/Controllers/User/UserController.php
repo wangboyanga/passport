@@ -184,35 +184,33 @@ class UserController extends Controller
                 'msg'=>'该账号已存在',
                 'token'=>''
             ];
-            return $request;
-        }
-        $password2=password_hash($password,PASSWORD_BCRYPT);
-        $data=[
-            'name'=>$name,
-            'password'=>$password2,
-            'age'=>$age,
-            'email'=>$email,
-            'reg_time'=>$reg_time
-        ];
-        //print_r($data);exit;
-        $uid=UserModel::insertGetId($data);
-        if($uid){
-            $token = substr(md5(time()+$uid.mt_rand(1,99999)),10,10);
-            $redis_key='app:login:token:'.$uid;
-            Redis::set($redis_key,$token);
-            $response=[
-                'error'=>0,
-                'msg'=>'ok',
-                'token'=>$token
-            ];
-            return $response;
         }else{
-            $response=[
-                'error'=>4001,
-                'msg'=>'注册失败',
-                'token'=>''
+            $password2=password_hash($password,PASSWORD_BCRYPT);
+            $data=[
+                'name'=>$name,
+                'password'=>$password2,
+                'age'=>$age,
+                'email'=>$email,
+                'reg_time'=>$reg_time
             ];
-            return $response;
+            $uid=UserModel::insertGetId($data);
+            if($uid){
+                $token = substr(md5(time()+$uid.mt_rand(1,99999)),10,10);
+                $redis_key='app:login:token:'.$uid;
+                Redis::set($redis_key,$token);
+                $response=[
+                    'error'=>0,
+                    'msg'=>'ok',
+                    'token'=>$token
+                ];
+            }else{
+                $response=[
+                    'error'=>4001,
+                    'msg'=>'注册失败',
+                    'token'=>''
+                ];
+            }
         }
+        return $response;
     }
 }
