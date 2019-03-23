@@ -167,20 +167,23 @@ class UserController extends Controller
                 $response=[
                     'error'=>0,
                     'msg'=>'ok',
-                    'token'=>$token
+                    'token'=>$token,
+                    'uid'=>$uid
                 ];
             }else{
                 $response=[
                     'error'=>4001,
                     'msg'=>'密码错误',
-                    'token'=>''
+                    'token'=>'',
+                    'uid'=>''
                 ];
             }
         }else{
             $response=[
                 'error'=>4001,
                 'msg'=>'账号不存在',
-                'token'=>''
+                'token'=>'',
+                'uid'=>''
             ];
         }
         return $response;
@@ -196,7 +199,8 @@ class UserController extends Controller
             $response=[
                 'error'=>4001,
                 'msg'=>'该账号已存在',
-                'token'=>''
+                'token'=>'',
+                'uid'=>''
             ];
         }else{
             $password2=password_hash($password,PASSWORD_BCRYPT);
@@ -216,13 +220,15 @@ class UserController extends Controller
                 $response=[
                     'error'=>0,
                     'msg'=>'ok',
-                    'token'=>$token
+                    'token'=>$token,
+                    'uid'=>$uid
                 ];
             }else{
                 $response=[
                     'error'=>4001,
                     'msg'=>'注册失败',
-                    'token'=>''
+                    'token'=>'',
+                    'uid'=>''
                 ];
             }
         }
