@@ -214,7 +214,7 @@ class UserController extends Controller
             $uid=UserModel::insertGetId($data);
             if($uid){
                 $token = substr(md5(time()+$uid.mt_rand(1,99999)),10,10);
-                $redis_key='app:login:token:'.$uid;
+                $redis_key='str:u:token:'.$uid;
                 Redis::del($redis_key);
                 Redis::hset($redis_key,'app',$token);
                 $response=[
